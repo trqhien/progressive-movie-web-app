@@ -16,29 +16,34 @@
           <img src="images/hamburger-menu-icon_48x48.png" alt="">
         </button>
 
-        <a href="https://www.google.com">
-          <img src="https://www.themoviedb.org/assets/2/v4/logos/primary-green-d70eebe18a5eb5b166d5c1ef0796715b8d1a2cbc698f96d311d62f894ae87085.svg" alt="The Movie Database (TMDb)" width="81" height="72">
-        </a>
+        <div class="logo">
+          <a href="https://www.google.com">
+            <img
+              src="https://www.themoviedb.org/assets/2/v4/logos/primary-green-d70eebe18a5eb5b166d5c1ef0796715b8d1a2cbc698f96d311d62f894ae87085.svg"
+              alt="The Movie Database (TMDb)"
+            >
+          </a>
+        </div>
+      </div>
 
-        <ul class="left-nav">
-          <li class="nav-item">
+      <div class="menu">
+        <ul class="menu tab-bar">
+          <li class="menu-item">
               <a href="#">Top Rated</a>
           </li>
 
-          <li class="nav-item">
+          <li class="menu-item">
               <a href="#">Now Playing</a>
           </li>
 
-          <li class="nav-item">
+          <li class="menu-item">
               <a href="#">Upcoming</a>
           </li>
 
-          <li class="nav-item">
+          <li class="menu-item">
               <a href="#">Popular</a>
           </li>
         </ul>
-
-
       </div>
     </div>
   </header>
@@ -53,7 +58,7 @@
 
   <script>
     const menuButton = document.querySelector('#hamburger-menu');
-    const menu = document.querySelector('ul.left-nav');
+    const menu = document.querySelector('div.menu');
     const main = document.querySelector('main');
 
     menuButton.addEventListener('click', (e) => {
