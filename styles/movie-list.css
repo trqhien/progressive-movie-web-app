@@ -1,0 +1,64 @@
+html, body, main {
+  height: 100%;
+  margin: 0;
+}
+
+/*
+  Header
+*/
+
+div.header-container div.left {
+  display: flex;
+  background-color: #091c23;
+}
+
+div.header-container ul.left {
+  padding: 0;
+  margin: 0;
+}
+
+ul.left-nav {
+  list-style-type: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+}
+
+.left-nav {
+  display: flex;
+}
+
+#hamburger-menu {
+  display: none;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  ul.left-nav {
+    background-color: green;
+  }
+
+  .left-nav {
+    display: block;
+    width: 40vw;
+    height: 100%;
+    position: absolute;
+    transform: translate(-40vw, 76px);
+    transition: transform 0.3s ease;
+  }
+
+  .left-nav.open {
+    transform: translate(0, 76px);
+  }
+
+  #hamburger-menu {
+    display: block;
+    position: absolute;
+    right: 0;
+  }
+}
