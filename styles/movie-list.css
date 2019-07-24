@@ -12,7 +12,7 @@ div.header-container div.left {
   background-color: #091c23;
 }
 
-div.header-container ul.left {
+div.header-container {
   padding: 0;
   margin: 0;
 }
@@ -23,14 +23,20 @@ ul.left-nav {
   font-size: 1em;
   padding: 0;
   margin: 0;
+  align-items: center;
+  display: flex;
 }
 
 .left-nav {
-  display: flex;
+  height: 72px;
 }
 
 #hamburger-menu {
   display: none;
+}
+
+li.nav-item {
+  padding: 1em;
 }
 
 .nav-item a {
@@ -41,10 +47,10 @@ ul.left-nav {
 @media screen and (max-width: 600px) {
   ul.left-nav {
     background-color: green;
+    display: block;
   }
 
   .left-nav {
-    display: block;
     width: 40vw;
     height: 100%;
     position: absolute;
@@ -57,6 +63,6 @@ ul.left-nav {
   }
 
   #hamburger-menu {
-    display: block;
+    display: flex;
   }
 }
