@@ -1,0 +1,23 @@
+{
+  "name": "progressive-movie-web-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify main.js -o bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trqhien/progressive-movie-web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trqhien/progressive-movie-web-app/issues"
+  },
+  "homepage": "https://github.com/trqhien/progressive-movie-web-app#readme",
+  "dependencies": {
+    "browserify": "^16.3.0",
+    "dotenv": "^8.0.0"
+  }
+}
