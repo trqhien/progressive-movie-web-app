@@ -58,6 +58,7 @@ function updateUI(movie) {
   outputHTML += `<source media="(min-width: 500px)" srcset="${IMAGE_BASE_URL}/w185${movie.poster_path} 1x, ${IMAGE_BASE_URL}/w500${movie.poster_path} 2x, ${IMAGE_BASE_URL}/w780${movie.poster_path} 3x, ${IMAGE_BASE_URL}/original${movie.poster_path}"></source>`;
   outputHTML += `<source media="(min-width: 400px)" srcset="${IMAGE_BASE_URL}/w780${movie.backdrop_path} 1x, ${IMAGE_BASE_URL}/w1280${movie.backdrop_path} 2x, ${IMAGE_BASE_URL}/w1280${movie.backdrop_path} 3x, ${IMAGE_BASE_URL}/original${movie.backdrop_path}"></source>`;
   outputHTML += `<source media="(min-width: 300px)" srcset="${IMAGE_BASE_URL}/w300${movie.backdrop_path} 1x, ${IMAGE_BASE_URL}/w780${movie.backdrop_path} 2x, ${IMAGE_BASE_URL}/w1280${movie.backdrop_path} 3x, ${IMAGE_BASE_URL}/original${movie.backdrop_path}"></source>`;
+  // Will add more media query later when actually working on the reponsive part. Right now it simply just load the poster when the screen width is above 500px.
   outputHTML += `<img src="${IMAGE_BASE_URL}/w300${movie.backdrop_path}"></img>`;
   picture.innerHTML = outputHTML;
 }
