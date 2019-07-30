@@ -30,28 +30,28 @@ function asJSON(response) {
 }
 
 function updateUI(movie) {
-  const title = document.getElementById('movie-detail-title-label');
+  const title = document.getElementById('title-label');
   const releaseDate = new Date(movie.release_date);
   title.innerHTML = `${movie.title} (${releaseDate.getFullYear()})`;
 
-  const overview = document.getElementById('movie-detail-overview-label');
+  const overview = document.getElementById('overview-label');
   overview.innerHTML = movie.overview;
 
-  const runtime = document.getElementById('movie-detail-runtime-label');
+  const runtime = document.getElementById('runtime-label');
   runtime.innerHTML = movie.runtime;
 
-  const budget = document.getElementById('movie-detail-budget-label');
+  const budget = document.getElementById('budget-label');
   budget.innerHTML = movie.budget;
 
-  const revenue = document.getElementById('movie-detail-revenue-label');
+  const revenue = document.getElementById('revenue-label');
   revenue.innerHTML = movie.revenue;
 
-  const spokenLanguages = document.getElementById('movie-detail-spoken-languages-label');
+  const spokenLanguages = document.getElementById('spoken-languages-label');
   spokenLanguages.innerHTML = movie.spoken_languages
     .map(language => language.name)
     .join(', ');
 
-  const genres = document.getElementById('movie-detail-genres-label');
+  const genres = document.getElementById('genres-label');
   genres.innerHTML = movie.genres
     .map(genre => genre.name)
     .join(', ');
