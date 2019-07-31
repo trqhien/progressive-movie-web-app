@@ -1,0 +1,27 @@
+{
+  "name": "progressive-movie-web-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "python -m SimpleHTTPServer",
+    "lint": "node_modules/.bin/eslint --ext .js ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trqhien/progressive-movie-web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trqhien/progressive-movie-web-app/issues"
+  },
+  "homepage": "https://github.com/trqhien/progressive-movie-web-app#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3"
+  }
+}
