@@ -1,15 +1,16 @@
-var api_key = "fce9002a14d2a9df6121f300d03601c7";
-var api_movie = "https://api.themoviedb.org/3/movie/top_rated?api_key=";
-var api_movie_now = "https://api.themoviedb.org/3/movie/top_rated?api_key=";
-var api_movie_up = "https://api.themoviedb.org/3/movie/top_rated?api_key=";
-var api_movie_pop = "https://api.themoviedb.org/3/movie/top_rated?api_key=";
+const api_key = "fce9002a14d2a9df6121f300d03601c7";
+const base_url = "https://api.themoviedb.org/3/movie";
+var api_movie = base_url + "/top_rated?api_key=";
+var api_movie_now = base_url + "/top_rated?api_key=";
+var api_movie_up = base_url + "/top_rated?api_key=";
+var api_movie_pop = base_url + "/top_rated?api_key=";
 
-var ApiTypeUrl= {
-    "top": api_movie,
-    "now": api_movie_now,
-    "pop": api_movie_pop,
-    "up": api_movie_up
-    }
+const TYPE_MOVIEURL= {
+    top: api_movie,
+    now: api_movie_now,
+    pop: api_movie_pop,
+    up: api_movie_up
+}
 
 function fetchMovieDetails(id){
 
@@ -27,9 +28,9 @@ function json(response) {
     return response.json()
 }
 
-function fetchMoviesList(page, language, type = "top"){
+function fetchMoviesList(page, language, type = top){
 
-    let api = ApiTypeUrl[type];
+    let api = TYPE_MOVIEURL[type];
     if(!api){
         api = api_movie; // by default
     }
