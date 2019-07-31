@@ -4,7 +4,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 const API_KEY = 'dc252f7444d39f39197952cf36f30ee4';
 
-function movieDetail(id) {
+function getMovieById(id) {
   const url = new URL(`${BASE_URL}/movie/${id}`)
 
   const params = {
@@ -63,4 +63,4 @@ function updateUI(movie) {
   picture.innerHTML = outputHTML;
 }
 
-movieDetail('420818'); // For testing, will remove later
+getMovieById('420818'); // For testing, will remove later
