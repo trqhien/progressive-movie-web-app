@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="scripts/fetch.js" type="text/javascript"></script>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>Movie App</title>
 
-  <link rel="stylesheet" href="styles/movie-list.css">
-  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/menu_style.css">
+  <link rel="stylesheet" href="styles/list_style.css">
 </head>
 
 <body>
+
   <header>
     <div class="header-container">
       <div class="left">
@@ -21,8 +25,7 @@
           <a href="/">
             <img
               src="https://www.themoviedb.org/assets/2/v4/logos/primary-green-d70eebe18a5eb5b166d5c1ef0796715b8d1a2cbc698f96d311d62f894ae87085.svg"
-              alt="The Movie Database (TMDb)"
-            >
+              alt="The Movie Database (TMDb)">
           </a>
         </div>
       </div>
@@ -30,19 +33,19 @@
       <div class="menu">
         <ul class="menu tab-bar">
           <li class="menu-item">
-              <a href="#">Top Rated</a>
+            <a href="#">Top Rated</a>
           </li>
 
           <li class="menu-item">
-              <a href="#">Now Playing</a>
+            <a href="#">Now Playing</a>
           </li>
 
           <li class="menu-item">
-              <a href="#">Upcoming</a>
+            <a href="#">Upcoming</a>
           </li>
 
           <li class="menu-item">
-              <a href="#">Popular</a>
+            <a href="#">Popular</a>
           </li>
         </ul>
       </div>
@@ -50,27 +53,66 @@
   </header>
 
   <main>
-      <h1>Resposive Movie App</h1>
+    <section>
+      <ul id="movies"> </ul>
+    </section>
+
+    <footer>
+      <h1>Footer</h1>
+    </footer>
   </main>
-
-  <footer>
-    <h1>Footer</h1>
-  </footer>
-
-  <script>
-    const menuButton = document.querySelector('#hamburger-menu');
-    const menu = document.querySelector('div.menu');
-    const main = document.querySelector('main');
-
-    menuButton.addEventListener('click', (e) => {
-      menu.classList.toggle('open');
-      e.stopPropagation();
-    });
-
-    main.addEventListener('click', () => {
-      menu.classList.remove('open');
-    });
-  </script>
-
 </body>
+
 </html>
+
+<script src="scripts/fetch.js"></script>
+
+<script type="text/javascript">
+  const promiseRes = fetchMoviesList("1", "en-US", "top");
+  promiseRes.then(onMovieList, onError);
+  // todo move to another file
+  function onMovieList(result) {
+    let output = '';
+
+    for (var i = 0; i < result.length; i++) {
+      let movie = result[i];
+      output += '<li class="snippet">';
+      output += '<div class="flex__snippet">'
+      output += '<picture class="snippet__thumbnail">';
+      output += `<source srcset="${movie.smallPoster()}" media="(max-width: 500px)">`;
+      output += `<source srcset="${movie.poster()}" media="(max-width: 800px)">`;
+      output += `<source srcset="${movie.largePoster()}" media="(min-width: 800px)">`;
+      output += `<img class="snippet__thumbnail_img" src="${movie.poster()}" alt=${movie.original_title}>`;
+      output += '</picture>';
+      output += '<div class="flex__snippet__text">'
+      output += `<h1 class="snippet__title"><a href="#">${movie.original_title}</a></h3>`;
+      output += `<h3 class="snippet__title id="movie_date"><a href="#">${movie.releaseDate()}</a></h3>`;
+      output += `<h3 class="snippet__title id="movie_rating"><a href="#">${movie.votes()}</a></h3>`;
+      output += `<p id="snippet_desc">${movie.overview}</p>`;
+      output += '</div>'
+      output += '</div>'
+      output += '</li>';
+    }
+
+    document.getElementById('movies').innerHTML = output;
+  }
+
+  function onError(error) {
+    console.log("Error receiving information from fetch: " + error);
+  }
+</script>
+
+<script>
+  const menuButton = document.querySelector('#hamburger-menu');
+  const menu = document.querySelector('div.menu');
+  const main = document.querySelector('main');
+
+  menuButton.addEventListener('click', (e) => {
+    menu.classList.toggle('open');
+    e.stopPropagation();
+  });
+
+  main.addEventListener('click', () => {
+    menu.classList.remove('open');
+  });
+</script>
