@@ -1,0 +1,31 @@
+{
+  "name": "wizeline-movies-pwa",
+  "version": "1.0.0",
+  "description": "Project's for learning",
+  "homepage": "https://github.com/trqhien/progressive-movie-web-app/projects/1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-http-to-https": "^1.1.4",
+    "node-fetch": "^2.3.0"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trqhien/progressive-movie-web-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trqhien/progressive-movie-web-app/issues"
+  },
+  "license": "Apache2",
+  "keywords": [
+    "The Movies Database",
+    "pwa",
+    "Wizeline Movies"
+  ]
+}

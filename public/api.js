@@ -1,19 +1,5 @@
-
-// Will use environment to hide those information
-const BASE_URL = 'https://api.themoviedb.org/3'
-const API_KEY = 'dc252f7444d39f39197952cf36f30ee4'
-
 function movieDetail(id) {
-  const url = new URL(`${BASE_URL}/movie/${id}`)
-
-  const params = {
-    api_key: API_KEY,
-    language: 'en-US'
-  }
-
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
-  fetch(url)
+  fetch(`/movie/${id}`)
     .then(asJSON)
     .then(updateUI)
     .catch((err) => {
