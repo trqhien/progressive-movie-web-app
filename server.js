@@ -15,8 +15,8 @@ function getMovieDetails(req, resp) {
     const url = new URL(`${BASE_URL}/movie/${id}`)
 
     const params = {
-      api_key: API_KEY,
-      language: 'en-US'
+        api_key: API_KEY,
+        language: 'en-US'
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
@@ -27,7 +27,34 @@ function getMovieDetails(req, resp) {
         return resp.json();
 
     }).then((data) => {
-        setTimeout( () => {
+        setTimeout(() => {
+            resp.json(data);
+        }, THE_MOVIES_DATABASE_DELAY);
+    }).catch((err) => {
+        console.error('The Movies Database API Error:', err.message);
+    });
+}
+
+function getMovies(req, resp) {
+    const type = req.params.type;
+    const page = req.params.page;
+    const url = new URL(`${BASE_URL}/movie/${type}?page=${page}`)
+
+    console.log(url);
+    const params = {
+        api_key: API_KEY,
+        language: 'en-US'
+    }
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    fetch(url).then((resp) => {
+        if (resp.status !== 200) {
+            throw new Error(resp.statusText);
+        }
+        return resp.json();
+
+    }).then((data) => {
+        setTimeout(() => {
             resp.json(data);
         }, THE_MOVIES_DATABASE_DELAY);
     }).catch((err) => {
@@ -42,6 +69,8 @@ function startServer() {
     // Redirect HTTP to HTTPS,
     app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
 
+    app.use(express.static('public'))
+
     // Logging for each request
     app.use((req, resp, next) => {
         const now = new Date();
@@ -55,6 +84,7 @@ function startServer() {
 
     // Handle requests for the data
     app.get('/movie/:id', getMovieDetails);
+    app.get('/movie/:type/:page', getMovies);
 
     // Handle requests for static files
     app.use(express.static('public'));

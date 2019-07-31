@@ -69,7 +69,7 @@
 <script src="scripts/fetch.js"></script>
 
 <script type="text/javascript">
-  const promiseRes = fetchMoviesList("1", "en-US", "top");
+  const promiseRes = fetchMoviesList(1, "now_playing");
   promiseRes.then(onMovieList, onError);
   // todo move to another file
   function onMovieList(result) {
