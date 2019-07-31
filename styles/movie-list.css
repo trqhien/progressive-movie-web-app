@@ -1,15 +1,10 @@
-html, body, main {
-  height: 100%;
-  margin: 0;
-}
-
 /*
   Header
 */
 
 /* Menu */
 
-header, div.header-container, div.left, div.menu {
+div.header-container, div.left, div.menu {
   display: flex;
   background-color: #091c23;
 }
