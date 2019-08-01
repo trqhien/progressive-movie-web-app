@@ -20,17 +20,17 @@ function getMovieDetails(req, resp) {
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-    fetch(url).then((resp) => {
+    fetch(url).then(resp => {
         if (resp.status !== 200) {
             throw new Error(resp.statusText);
         }
         return resp.json();
 
-    }).then((data) => {
+    }).then(data => {
         setTimeout(() => {
             resp.json(data);
         }, THE_MOVIES_DATABASE_DELAY);
-    }).catch((err) => {
+    }).catch(err => {
         console.error('The Movies Database API Error:', err.message);
     });
 }
@@ -47,17 +47,17 @@ function getMovies(req, resp) {
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-    fetch(url).then((resp) => {
+    fetch(url).then(resp => {
         if (resp.status !== 200) {
             throw new Error(resp.statusText);
         }
         return resp.json();
 
-    }).then((data) => {
+    }).then(data => {
         setTimeout(() => {
             resp.json(data);
         }, THE_MOVIES_DATABASE_DELAY);
-    }).catch((err) => {
+    }).catch(err => {
         console.error('The Movies Database API Error:', err.message);
     });
 }
