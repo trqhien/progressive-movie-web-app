@@ -43,11 +43,12 @@ function getMovieDetails(req, resp) {
 function getMovies(req, resp) {
     const type = req.params.type;
     const page = req.params.page;
-    const url = new URL(`${BASE_URL}/movie/${type}?page=${page}`)
+    const url = new URL(`${BASE_URL}/movie/${type}`)
 
     const params = {
         api_key: API_KEY,
-        language: 'en-US'
+        language: 'en-US',
+        page: `${page}`
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return fetchUrl(url, resp);
