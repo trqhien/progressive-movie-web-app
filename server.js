@@ -1,6 +1,6 @@
 const express = require('express');
 const { redirectToHTTPS } = require('express-http-to-https');
-const { getMovieDetails, getMovies } = require('./fetch');
+const { getMovieDetails, getMovies, fetchImage } = require('./fetch');
 
 function startServer() {
   const app = express();
@@ -24,6 +24,7 @@ function startServer() {
   // Handle requests for the data
   app.get('/movie/:id', getMovieDetails);
   app.get('/movie/:type/:page', getMovies);
+  app.get('/image/:width/:name', fetchImage);
 
   // Handle requests for static files
   app.use(express.static('public'));
