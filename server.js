@@ -40,7 +40,6 @@ function getMovies(req, resp) {
     const page = req.params.page;
     const url = new URL(`${BASE_URL}/movie/${type}?page=${page}`)
 
-    console.log(url);
     const params = {
         api_key: API_KEY,
         language: 'en-US'
