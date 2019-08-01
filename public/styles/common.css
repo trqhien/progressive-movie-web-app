@@ -1,0 +1,9 @@
+html, body, main {
+  height: 100%;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  background-color: #091c23;
+}
