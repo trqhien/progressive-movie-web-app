@@ -4,7 +4,7 @@
 
 /* Menu */
 
-div.header-container, div.left, div.menu {
+header, div.header-container, div.left, div.menu {
   display: flex;
   background-color: #091c23;
 }

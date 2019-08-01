@@ -35,7 +35,17 @@ div.nav-container {
 /*  */
 .poster {
   width: 100%;
-  height: 200px;
+}
+
+div.poster {
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
   background-color: gray;
 }
 
+.poster picture {
+  position: absolute;
+}
+
+picture.poster img {
+  width: 100%;
+}

@@ -1,20 +1,20 @@
-export function convertToRuntimeFormat(durationInMinutes) {
+function convertToRuntimeFormat(durationInMinutes) {
   if (typeof durationInMinutes !== 'number') {
-    return ''
+    return '';
   }
 
   const hours = Math.floor(mindurationInMinutesutes / 60);
   const minutes = durationInMinutes - hours * 60;
 
-  const output = ''
+  let output = '';
 
   if (hours > 1) { output += `${hours}h` }
-  output += `${minutes}m`
-  return output
+  output += `${minutes}`;
+  return output;
 }
 
 
-export function formatCurrency(number) {
+function formatCurrency(number) {
   let num = number;
 
   if (typeof number !== 'number') {
@@ -31,4 +31,9 @@ export function formatCurrency(number) {
   );
 
   return currencyFormatter.format(num);
+}
+
+module.exports = {
+  convertToRuntimeFormat,
+  formatCurrency,
 }
