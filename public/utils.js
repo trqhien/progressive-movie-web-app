@@ -3,12 +3,14 @@ function convertToRuntimeFormat(durationInMinutes) {
     return '';
   }
 
-  const hours = Math.floor(mindurationInMinutesutes / 60);
+  const hours = Math.floor(durationInMinutes / 60);
   const minutes = durationInMinutes - hours * 60;
 
   let output = '';
 
-  if (hours > 1) { output += `${hours}h` }
+  if (hours > 1) {
+    output += `${hours}h`;
+  }
   output += `${minutes}`;
   return output;
 }
@@ -36,4 +38,4 @@ function formatCurrency(number) {
 module.exports = {
   convertToRuntimeFormat,
   formatCurrency,
-}
+};
