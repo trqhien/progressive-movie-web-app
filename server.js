@@ -72,12 +72,19 @@ function startServer() {
         next();
     });
 
+    app.use(express.static('public'));
+
     // Handle requests for the data
     app.get('/movie/:id', getMovieDetails);
     app.get('/movie/:type/:page', getMovies);
 
+    app.get('/movie-detail/:id', function(req,res){
+        const id = req.params.id;
+        res.redirect(`/movie-detail.html?id=${id}`);
+    }); 
+
     // Handle requests for static files
-    app.use(express.static('public'));
+    
 
     return app.listen('8002', () => {
         // eslint-disable-next-line no-console
