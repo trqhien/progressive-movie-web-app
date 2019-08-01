@@ -5,7 +5,6 @@ body, html, main {
   height: auto;
 }
 
-
 body {
   font-family: Roboto;
   font-size: 12px;
@@ -30,3 +29,63 @@ header {
   display: flex;
   background-color: #091c23;
 }
+  
+.loading {
+  width: 100vw;
+  display: flex; 
+  flex-direction: row;
+  justify-content: center;
+}
+.loading.hide {
+  display: none;
+}
+
+.load_more {
+  width: 100vw;
+  display: flex; 
+  flex-direction: row;
+  justify-content: center;
+}
+
+.rounded.new_button.pad {
+  border-color: #184343;
+  background-color: #184343;
+  color: #ffffff;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  padding: 10px 20px;
+  font-size: 0.9em;
+  line-height: 1em;
+  margin-top: 30px;
+  margin-bottom: 0;
+  margin: 20px 0 0 0;
+  border: 2px solid #fff;
+  transition: linear .1s;
+  box-sizing: border-box;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.rounded.new_button.pad .more_text {
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.1em;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1em;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
