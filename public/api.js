@@ -1,20 +1,9 @@
-
-// Will use environment to hide those information
-const BASE_URL = 'https://api.themoviedb.org/3';
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
-const API_KEY = 'dc252f7444d39f39197952cf36f30ee4';
-
 function getMovieById(id) {
-  const url = new URL(`${BASE_URL}/movie/${id}`);
+  return fetch(`/movie/${id}`);
+}
 
-  const params = {
-    api_key: API_KEY,
-    language: 'en-US',
-  };
-
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-  return fetch(url);
+function log(result) {
+  console.log(result);
 }
 
 function asJSON(response) {

@@ -4,6 +4,7 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="manifest" href="/manifest.json" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>Movie App</title>
 
@@ -67,7 +68,7 @@
 <script src="scripts/fetch.js"></script>
 
 <script type="text/javascript">
-  const promiseRes = fetchMoviesList("1", "en-US", "top");
+  const promiseRes = fetchMoviesList(1, "now_playing");
   promiseRes.then(onMovieList, onError);
   // todo move to another file
   function onMovieList(result) {
