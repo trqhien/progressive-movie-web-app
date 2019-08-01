@@ -17,9 +17,7 @@ function checkingStatusCode(resp) {
 }
 
 function fetchUrl(url, resp) {
-    fetch(url).then(resp => {
-        return checkingStatusCode(resp);
-    }).then(data => {
+    fetch(url).then(checkingStatusCode).then(data => {
         setTimeout(() => {
             resp.json(data);
         }, THE_MOVIES_DATABASE_DELAY);
@@ -48,7 +46,7 @@ function getMovies(req, resp) {
     const params = {
         api_key: API_KEY,
         language: 'en-US',
-        page: `${page}`
+        page
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return fetchUrl(url, resp);
