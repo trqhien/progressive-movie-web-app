@@ -9,6 +9,24 @@ const API_KEY = 'dc252f7444d39f39197952cf36f30ee4'
 
 const THE_MOVIES_DATABASE_DELAY = 0;
 
+function checkingStatusCode(resp) {
+    if (resp.status !== 200) {
+        throw new Error(resp.statusText);
+    }
+    return resp.json();
+}
+
+function fetchUrl(url, resp) {
+    fetch(url).then(resp => {
+        return checkingStatusCode(resp);
+    }).then(data => {
+        setTimeout(() => {
+            resp.json(data);
+        }, THE_MOVIES_DATABASE_DELAY);
+    }).catch(err => {
+        console.error('The Movies Database API Error:', err.message);
+    });
+}
 
 function getMovieDetails(req, resp) {
     const id = req.params.id;
@@ -19,20 +37,7 @@ function getMovieDetails(req, resp) {
         language: 'en-US'
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-    fetch(url).then(resp => {
-        if (resp.status !== 200) {
-            throw new Error(resp.statusText);
-        }
-        return resp.json();
-
-    }).then(data => {
-        setTimeout(() => {
-            resp.json(data);
-        }, THE_MOVIES_DATABASE_DELAY);
-    }).catch(err => {
-        console.error('The Movies Database API Error:', err.message);
-    });
+    return fetchUrl(url, resp);
 }
 
 function getMovies(req, resp) {
@@ -45,20 +50,7 @@ function getMovies(req, resp) {
         language: 'en-US'
     }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-    fetch(url).then(resp => {
-        if (resp.status !== 200) {
-            throw new Error(resp.statusText);
-        }
-        return resp.json();
-
-    }).then(data => {
-        setTimeout(() => {
-            resp.json(data);
-        }, THE_MOVIES_DATABASE_DELAY);
-    }).catch(err => {
-        console.error('The Movies Database API Error:', err.message);
-    });
+    return fetchUrl(url, resp);
 }
 
 function startServer() {
