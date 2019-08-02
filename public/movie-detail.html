@@ -22,34 +22,46 @@
 
   <main>
     <div class="detail-container">
-      <div class="poster">
-        <picture id="poster-image" class="poster"></picture>
+
+      <div class="poster-container">
+        <div class="aspect-ratio">
+          <picture id="poster-image"></picture>
+        </div>
       </div>
 
-      <div class="title">
-        <h1 id="title-label"></h1>
+      <div class="general-info-container">
+        <div class="title">
+          <h1 id="title-label"></h1>
+        </div>
+
+        <div class="overview">
+          <h2>OverView</h2>
+          <p id="overview-label"></p>
+        </div>
+
+        <div class="genres">
+          <h2>Genres</h2>
+          <p id="genres-label-info" class="genres-label"></p>
+        </div>
       </div>
 
-      <div class="overview">
-        <h2>OverView</h2>
-        <p id="overview-label"></p>
-      </div>
+      <div class="release-info-container">
+        <h2>Release Information</h2>
 
-      <div class="release-information">
         <p>Spoken Language: <span id="spoken-languages-label"></span></p>
         <p>Runtime: <span id="runtime-label"></span></p>
         <p>Budget: <span id="budget-label"></span></p>
         <p>Revenue: <span id="revenue-label"></span></p>
-      </div>
 
-      <div class="genres">
-        <h2>Genres</h2>
-        <p id="genres-label"></p>
-      </div>
+        <div class="genres">
+            <h4>Genres</h4>
+            <p id="genres-label-release" class="genres-label"></p>
+          </div>
 
-      <div class="keyword">
-        <h2>Keywords</h2>
-        <p>TO BE COMPLETED</p>
+        <div class="keyword">
+          <h4>Keywords</h4>
+          <p>TO BE COMPLETED</p>
+        </div>
       </div>
 
       <div class="cast-and-crew">

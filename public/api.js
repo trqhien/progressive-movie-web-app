@@ -28,8 +28,13 @@ function updateUI(movie) {
     .map(language => language.name)
     .join(', ');
 
-  const genres = document.getElementById('genres-label');
-  genres.innerHTML = movie.genres
+  const genresInfo = document.getElementById('genres-label-info');
+  genresInfo.innerHTML = movie.genres
+    .map(genre => genre.name)
+    .join(', ');
+
+  const genresRelease = document.getElementById('genres-label-release');
+  genresRelease.innerHTML = movie.genres
     .map(genre => genre.name)
     .join(', ');
 
