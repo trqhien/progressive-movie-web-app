@@ -23,9 +23,19 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// self.addEventListener('activate', event => {
-//   console.log('Finally active. Ready to start serving content!', event);
-// });
+self.addEventListener('activate', () => {
+  const cacheWhiteList = [CACHE_VERSION];
+
+  // eslint-disable-next-line arrow-body-style
+  caches.keys().then(cacheNames => {
+    // eslint-disable-next-line array-callback-return, consistent-return
+    return Promise.all(cacheNames.map(name => {
+      if (cacheWhiteList.indexOf(name) === -1) {
+        return caches.delete(name);
+      }
+    }));
+  });
+});
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
@@ -38,22 +48,23 @@ self.addEventListener('fetch', (event) => {
 
         return fetch(event.request)
           .then(res => {
-            if (!res || res.status !== 200) {
+            if (!res || res.status !== 200 || res.type !== 'basic') {
               // TODO: Return 404 page
               return res;
             }
 
+            const responseToCache = res.clone();
             caches
               .open(CACHE_VERSION)
               .then(cache => {
-                cache.put(event.request, res.clone());
+                cache.put(event.request, responseToCache);
               });
 
             return res;
           });
       })
       .catch(err => {
-        console.log('Error, ', err);
+        console.log('Error, ', err); // eslint-disable-line no-console
         // TODO: return offline page
       }) // eslint-disable-line comma-dangle
   );
