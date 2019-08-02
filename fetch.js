@@ -15,12 +15,12 @@ function checkingStatusCode(resp) {
 function fetchUrl(url, resp) {
   fetch(url)
     .then(checkingStatusCode)
-    .then((data) => {
+    .then(data => {
       setTimeout(() => {
         resp.json(data);
       }, THE_MOVIES_DATABASE_DELAY);
     })
-    .catch((err) => {
+    .catch(err => {
       console.error('The Movies Database API Error:', err.message); // eslint-disable-line no-console
     });
 }

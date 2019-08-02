@@ -50,6 +50,6 @@ const response = getMovieById('420818');
 response
   .then(asJSON)
   .then(updateUI)
-  .catch((err) => {
+  .catch(err => {
     console.log(err); // eslint-disable-line no-console
   });
