@@ -60,7 +60,7 @@ function getQueryVariable(variable) {
   alert('Query Variable ' + variable + ' not found');
 }
 
-var movieId = getQueryVariable("id");
+const movieId = getQueryVariable("id");
 const response = getMovieById(movieId);
 
 response
