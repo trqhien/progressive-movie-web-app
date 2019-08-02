@@ -13,6 +13,13 @@
     "express-http-to-https": "^1.1.4",
     "node-fetch": "^2.3.0"
   },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3"
+  },
   "engines": {
     "node": "8.x"
   },
@@ -22,17 +29,5 @@
   },
   "bugs": {
     "url": "https://github.com/trqhien/progressive-movie-web-app/issues"
-  },
-  "keywords": [
-    "The Movies Database",
-    "pwa",
-    "Wizeline Movies"
-  ],
-  "devDependencies": {
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3"
   }
 }
