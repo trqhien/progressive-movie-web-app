@@ -43,11 +43,9 @@ self.addEventListener('fetch', (event) => {
               return res;
             }
 
-            // const responseToCache = res.clone();
             caches
               .open(CACHE_VERSION)
               .then(cache => {
-                // const responseToCache = res.clone();
                 cache.put(event.request, res.clone());
               });
 
