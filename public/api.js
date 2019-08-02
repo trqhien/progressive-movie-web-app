@@ -6,6 +6,43 @@ function asJSON(response) {
   return response.json();
 }
 
+function convertToRuntimeFormat(durationInMinutes) {
+  if (typeof durationInMinutes !== 'number') {
+    return '';
+  }
+
+  const hours = Math.floor(durationInMinutes / 60);
+  const minutes = durationInMinutes - hours * 60;
+
+  let output = '';
+
+  if (hours >= 1) {
+    output += `${hours}h`;
+  }
+  output += `${minutes}m`;
+  return output;
+}
+
+
+function formatCurrency(number) {
+  let num = number;
+
+  if (typeof number !== 'number') {
+    num = 0;
+  }
+
+  const currencyFormatter = new Intl.NumberFormat(
+    'en-US',
+    {
+      style: 'decimal',
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    },
+  );
+
+  return currencyFormatter.format(num);
+}
+
 function updateUI(movie) {
   const title = document.getElementById('title-label');
   const releaseDate = new Date(movie.release_date);
@@ -15,13 +52,13 @@ function updateUI(movie) {
   overview.innerHTML = movie.overview;
 
   const runtime = document.getElementById('runtime-label');
-  runtime.innerHTML = movie.runtime;
+  runtime.innerHTML = `${convertToRuntimeFormat(movie.runtime)}`;
 
   const budget = document.getElementById('budget-label');
-  budget.innerHTML = movie.budget;
+  budget.innerHTML = `$${formatCurrency(movie.budget)}`;
 
   const revenue = document.getElementById('revenue-label');
-  revenue.innerHTML = movie.revenue;
+  revenue.innerHTML = `$${formatCurrency(movie.revenue)}`;
 
   const spokenLanguages = document.getElementById('spoken-languages-label');
   spokenLanguages.innerHTML = movie.spoken_languages
