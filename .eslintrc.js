@@ -10,4 +10,12 @@ module.exports = {
     "implicit-arrow-linebreak": "off",
     "no-underscore-dangle": "off",
   },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "arrow-parens":"off",
+      }
+    }
+  ]
 };

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="scripts/fetch.js" type="text/javascript"></script>
 
 <head>
   <meta charset="utf-8">
@@ -33,15 +32,18 @@
       <div class="menu">
         <ul class="menu tab-bar">
           <li class="menu-item">
-            <a href="javascript:void()" id="nav-top-rated" onclick="javascript:openMoviesList('top_rated', 1)">Top Rated</a>
+            <a href="javascript:void()" id="nav-top-rated" onclick="javascript:openMoviesList('top_rated', 1)">Top
+              Rated</a>
           </li>
 
           <li class="menu-item">
-            <a href="javascript:void()" id="nav-now-playing" onclick="javascript:openMoviesList('now_playing', 1)">Now Playing</a>
+            <a href="javascript:void()" id="nav-now-playing" onclick="javascript:openMoviesList('now_playing', 1)">Now
+              Playing</a>
           </li>
 
           <li class="menu-item">
-            <a href="javascript:void()" id="nav-upcomming" onclick="javascript:openMoviesList('upcoming', 1)">Upcoming</a>
+            <a href="javascript:void()" id="nav-upcomming"
+              onclick="javascript:openMoviesList('upcoming', 1)">Upcoming</a>
           </li>
 
           <li class="menu-item">
@@ -69,92 +71,106 @@
       <!-- <h1>Footer</h1> -->
     </footer>
   </main>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => {
+            console.log('Service worker registered! 😎', reg.scope);
+          })
+          .catch(err => {
+            console.log('😥 Service worker registration failed: ', err);
+          })
+      })
+    }
+  </script>
+
+  <script>
+    const menuButton = document.querySelector('#hamburger-menu');
+    const menu = document.querySelector('div.menu');
+    const main = document.querySelector('main');
+
+    menuButton.addEventListener('click', e => {
+      menu.classList.toggle('open');
+      e.stopPropagation();
+    });
+
+    main.addEventListener('click', () => {
+      menu.classList.remove('open');
+    });
+  </script>
+
+  <script src="scripts/fetch.js"></script>
+
+  <script type="text/javascript">
+    openMoviesList("now_playing", 1);
+
+    function generateMoviesUI(result) {
+      let output = '';
+
+      for (var i = 0; i < result.length; i++) {
+        let movie = result[i];
+        output += '<li class="snippet">';
+        output += '<div class="flex__snippet">'
+        output += '<picture class="snippet__thumbnail">';
+        output += `<source srcset="${movie.smallPoster()}" media="(max-width: 500px)">`;
+        output += `<source srcset="${movie.poster()}" media="(max-width: 800px)">`;
+        output += `<source srcset="${movie.largePoster()}" media="(min-width: 800px)">`;
+        output += `<img class="snippet__thumbnail_img" src="${movie.poster()}" alt=${movie.original_title}>`;
+        output += '</picture>';
+        output += '<div class="flex__snippet__text">'
+        output += `<h1 class="snippet__title"><a href="/movie-detail/${movie.id}">${movie.original_title}</a></h3>`;
+        output += `<h3 class="snippet__title id="movie_date"><a href="#">${movie.releaseDate()}</a></h3>`;
+        output += `<h3 class="snippet__title id="movie_rating"><a href="#">${movie.votes()}</a></h3>`;
+        output += `<p id="snippet_desc">${movie.overview}</p>`;
+        output += '</div>'
+        output += '</div>'
+        output += '</li>';
+      }
+      return output;
+    }
+
+    function onMovieList(result) {
+      document.getElementById('movies').innerHTML = generateMoviesUI(result);
+      let loading = document.getElementById('loading_area');
+      loading.classList.toggle("hide");
+    }
+
+    function onAppendMovieList(result) {
+      document.getElementById('movies').innerHTML += generateMoviesUI(result);
+      let loading = document.getElementById('loading_area');
+      loading.classList.toggle("hide");
+    }
+
+    function onError(error) {
+      console.log("Error receiving information from fetch: " + error);
+      let loading = document.getElementById('loading_area');
+      loading.classList.toggle("hide");
+    }
+
+    function openMoviesList(type, page) {
+      const currentType = sessionStorage.getItem("movie_list_type");
+      if (currentType === type && document.getElementById('movies').innerHTML === "") return;
+      let loading = document.getElementById('loading_area');
+      loading.classList.remove("hide");
+      document.getElementById('movies').innerHTML = "";
+      sessionStorage.setItem("movie_list_type", type);
+      sessionStorage.setItem("page", page);
+      const promiseRes = fetchMoviesList(sessionStorage.getItem("page"), sessionStorage.getItem("movie_list_type"));
+      promiseRes.then(onMovieList, onError);
+    }
+
+    function loadMore() {
+      let loading = document.getElementById('loading_area');
+      loading.classList.remove("hide");
+      let page = sessionStorage.getItem("page") || 1;
+      sessionStorage.setItem("page", parseInt(page) + 1);
+      const promiseRes = fetchMoviesList(sessionStorage.getItem("page"), sessionStorage.getItem("movie_list_type"));
+      promiseRes.then(onAppendMovieList, onError);
+    }
+
+  </script>
 </body>
 
 </html>
-
-<script src="scripts/fetch.js"></script>
-
-<script type="text/javascript">
-  openMoviesList("now_playing", 1);
-
-  function generateMoviesUI(result) {
-    let output = '';
-
-    for (var i = 0; i < result.length; i++) {
-      let movie = result[i];
-      output += '<li class="snippet">';
-      output += '<div class="flex__snippet">'
-      output += '<picture class="snippet__thumbnail">';
-      output += `<source srcset="${movie.smallPoster()}" media="(max-width: 500px)">`;
-      output += `<source srcset="${movie.poster()}" media="(max-width: 800px)">`;
-      output += `<source srcset="${movie.largePoster()}" media="(min-width: 800px)">`;
-      output += `<img class="snippet__thumbnail_img" src="${movie.poster()}" alt=${movie.original_title}>`;
-      output += '</picture>';
-      output += '<div class="flex__snippet__text">'
-      output += `<h1 class="snippet__title"><a href="/movie-detail/${movie.id}">${movie.original_title}</a></h3>`;
-      output += `<h3 class="snippet__title id="movie_date"><a href="#">${movie.releaseDate()}</a></h3>`;
-      output += `<h3 class="snippet__title id="movie_rating"><a href="#">${movie.votes()}</a></h3>`;
-      output += `<p id="snippet_desc">${movie.overview}</p>`;
-      output += '</div>'
-      output += '</div>'
-      output += '</li>';
-    }
-    return output;
-  }
-
-  function onMovieList(result) {
-    document.getElementById('movies').innerHTML = generateMoviesUI(result);
-    let loading = document.getElementById('loading_area');
-    loading.classList.toggle("hide");
-  }
-
-  function onAppendMovieList(result) {
-    document.getElementById('movies').innerHTML += generateMoviesUI(result);
-    let loading = document.getElementById('loading_area');
-    loading.classList.toggle("hide");
-  }
-
-  function onError(error) {
-    console.log("Error receiving information from fetch: " + error);
-    let loading = document.getElementById('loading_area');
-    loading.classList.toggle("hide");
-  }
-
-  function openMoviesList(type, page) {
-    const currentType = sessionStorage.getItem("movie_list_type");
-    if (currentType === type && document.getElementById('movies').innerHTML === "") return;
-    let loading = document.getElementById('loading_area');
-    loading.classList.remove("hide");
-    document.getElementById('movies').innerHTML = "";
-    sessionStorage.setItem("movie_list_type", type);
-    sessionStorage.setItem("page", page);
-    const promiseRes = fetchMoviesList(sessionStorage.getItem("page"), sessionStorage.getItem("movie_list_type"));
-    promiseRes.then(onMovieList, onError);
-  }
-
-  function loadMore() {
-    let loading = document.getElementById('loading_area');
-    loading.classList.remove("hide");
-    let page = sessionStorage.getItem("page") || 1;
-    sessionStorage.setItem("page", parseInt(page) + 1);
-    const promiseRes = fetchMoviesList(sessionStorage.getItem("page"), sessionStorage.getItem("movie_list_type"));
-    promiseRes.then(onAppendMovieList, onError);
-  }
-
-</script>
-
-<script>
-  const menuButton = document.querySelector('#hamburger-menu');
-  const menu = document.querySelector('div.menu');
-  const main = document.querySelector('main');
-
-  menuButton.addEventListener('click', (e) => {
-    menu.classList.toggle('open');
-    e.stopPropagation();
-  });
-
-  main.addEventListener('click', () => {
-    menu.classList.remove('open');
-  });
-</script>
