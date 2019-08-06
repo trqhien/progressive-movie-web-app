@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/movie-list.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -23,8 +24,7 @@
           <a href="/">
             <img
               src="https://www.themoviedb.org/assets/2/v4/logos/primary-green-d70eebe18a5eb5b166d5c1ef0796715b8d1a2cbc698f96d311d62f894ae87085.svg"
-              alt="The Movie Database (TMDb)"
-            >
+              alt="The Movie Database (TMDb)">
           </a>
         </div>
       </div>
@@ -32,19 +32,22 @@
       <div class="menu">
         <ul class="menu tab-bar">
           <li class="menu-item">
-            <a href="#">Top Rated</a>
+            <a href="javascript:void()" id="nav-top-rated" onclick="javascript:openMoviesList('top_rated', 1)">Top
+              Rated</a>
           </li>
 
           <li class="menu-item">
-            <a href="#">Now Playing</a>
+            <a href="javascript:void()" id="nav-now-playing" onclick="javascript:openMoviesList('now_playing', 1)">Now
+              Playing</a>
           </li>
 
           <li class="menu-item">
-            <a href="#">Upcoming</a>
+            <a href="javascript:void()" id="nav-upcomming"
+              onclick="javascript:openMoviesList('upcoming', 1)">Upcoming</a>
           </li>
 
           <li class="menu-item">
-            <a href="#">Popular</a>
+            <a href="javascript:void()" id="nav-popular" onclick="javascript:openMoviesList('popular', 1)">Popular</a>
           </li>
         </ul>
       </div>
@@ -54,10 +57,18 @@
   <main>
     <section>
       <ul id="movies"> </ul>
+      <div class="loading" id="loading_area">
+        <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+      </div>
+
+      <div class="load_more">
+        <p class="rounded new_button pad"><a class="more_text" href='javascript:void()'
+            onclick="javascript:loadMore()">More</a></p>
+      </div>
     </section>
 
     <footer>
-      <h1>Footer</h1>
+      <!-- <h1>Footer</h1> -->
     </footer>
   </main>
 
@@ -93,10 +104,9 @@
   <script src="scripts/fetch.js"></script>
 
   <script type="text/javascript">
-    const promiseRes = fetchMoviesList(1, "now_playing");
-    promiseRes.then(onMovieList, onError);
-    // todo move to another file
-    function onMovieList(result) {
+    openMoviesList("now_playing", 1);
+
+    function generateMoviesUI(result) {
       let output = '';
 
       for (var i = 0; i < result.length; i++) {
@@ -110,7 +120,7 @@
         output += `<img class="snippet__thumbnail_img" src="${movie.poster()}" alt=${movie.original_title}>`;
         output += '</picture>';
         output += '<div class="flex__snippet__text">'
-        output += `<h1 class="snippet__title"><a href="#">${movie.original_title}</a></h3>`;
+        output += `<h1 class="snippet__title"><a href="/movie-detail/${movie.id}">${movie.original_title}</a></h3>`;
         output += `<h3 class="snippet__title id="movie_date"><a href="#">${movie.releaseDate()}</a></h3>`;
         output += `<h3 class="snippet__title id="movie_rating"><a href="#">${movie.votes()}</a></h3>`;
         output += `<p id="snippet_desc">${movie.overview}</p>`;
@@ -118,18 +128,49 @@
         output += '</div>'
         output += '</li>';
       }
+      return output;
+    }
 
-      document.getElementById('movies').innerHTML = output;
+    function onMovieList(result) {
+      document.getElementById('movies').innerHTML = generateMoviesUI(result);
+      let loading = document.getElementById('loading_area');
+      loading.classList.toggle("hide");
+    }
+
+    function onAppendMovieList(result) {
+      document.getElementById('movies').innerHTML += generateMoviesUI(result);
+      let loading = document.getElementById('loading_area');
+      loading.classList.toggle("hide");
     }
 
     function onError(error) {
       console.log("Error receiving information from fetch: " + error);
+      let loading = document.getElementById('loading_area');
+      loading.classList.toggle("hide");
     }
+
+    function openMoviesList(type, page) {
+      const currentType = sessionStorage.getItem("movie_list_type");
+      if (currentType === type && document.getElementById('movies').innerHTML === "") return;
+      let loading = document.getElementById('loading_area');
+      loading.classList.remove("hide");
+      document.getElementById('movies').innerHTML = "";
+      sessionStorage.setItem("movie_list_type", type);
+      sessionStorage.setItem("page", page);
+      const promiseRes = fetchMoviesList(sessionStorage.getItem("page"), sessionStorage.getItem("movie_list_type"));
+      promiseRes.then(onMovieList, onError);
+    }
+
+    function loadMore() {
+      let loading = document.getElementById('loading_area');
+      loading.classList.remove("hide");
+      let page = sessionStorage.getItem("page") || 1;
+      sessionStorage.setItem("page", parseInt(page) + 1);
+      const promiseRes = fetchMoviesList(sessionStorage.getItem("page"), sessionStorage.getItem("movie_list_type"));
+      promiseRes.then(onAppendMovieList, onError);
+    }
+
   </script>
 </body>
 
 </html>
-
-
-
-
