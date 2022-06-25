@@ -11,7 +11,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "express-http-to-https": "^1.1.4",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "eslint": "^6.1.0",
